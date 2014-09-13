@@ -1,14 +1,17 @@
 (ns drink-with-strangers.test.handler
+  (:use midje.sweet)
   (:require [clojure.test :refer :all]
             [drink-with-strangers.handler :refer :all]
             [ring.mock.request :as mock]))
 
-(deftest test-app
-  (testing "main route"
-    (let [response (app (mock/request :get "/"))]
-      (is (= (:status response) 200))
-      (is (= (:body response) "Hello World"))))
-  
-  (testing "not-found route"
-    (let [response (app (mock/request :get "/invalid"))]
-      (is (= (:status response) 404)))))
+(facts "routes"
+       (facts "main route"
+              (let [response (app (mock/request :get "/"))]
+                (fact "status"
+                      (:status response) => 200)
+                (fact "body"
+                      (:body response) => "Hello World")))
+       (facts "not found"
+              (let [response (app (mock/request :get "/invalid"))]
+                (fact "status"
+                      (:status response) => 404))))
