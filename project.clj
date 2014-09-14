@@ -5,11 +5,18 @@
                  [compojure "1.1.8"]
                  [ring/ring-json "0.3.1"]
                  [ring/ring-defaults "0.1.1"]
-                 [org.clojure/data.json "0.2.5"]]
+                 [org.clojure/data.json "0.2.5"]
+                 [postgresql/postgresql "8.4-702.jdbc4"]
+                 [ragtime/ragtime.sql.files "0.3.6"]]
   :plugins [[lein-ring "0.8.11"]]
   :ring {:handler drink-with-strangers.handler/app}
+  :ragtime {:migrations ragtime.sql.files/migrations
+            :database "jdbc:postgresql://localhost:5432/dws?user=hugo&password=test"}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring-mock "0.1.5"]
-                        [midje "1.6.3"]]
-         :plugins [[lein-midje "3.1.1"]]}})
+                        [midje "1.6.3"]
+                        [ragtime "0.3.7"]]
+         :plugins [[lein-midje "3.1.1"]
+                   [lein-exec "0.3.4"]
+                   [ragtime/ragtime.lein "0.3.6"]]}})
