@@ -18,6 +18,8 @@
   :ring {:handler drink-with-strangers.handler/app}
   :ragtime {:migrations ragtime.sql.files/migrations
             :database "jdbc:postgresql://localhost:5432/dws?user=postgres&password=postgres"}
+  :aliases {"unit-test" ["midje" ":filter" "-it"]
+            "integration-test" ["midje" ":filter" "it"]}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring-mock "0.1.5"]
