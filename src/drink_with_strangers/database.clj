@@ -4,11 +4,11 @@
         korma.config))
 
 (defdb pg (postgres {
-                     :db "dws"
-                     :user "postgres"
-                     :password "postgres"
-                     :host "localhost"
-                     :port "5432"
+                     :db       (or (System/getenv "DB_NAME")             "dws")
+                     :user     (or (System/getenv "SNAP_DB_PG_USER")     "postgres")
+                     :password (or (System/getenv "SNAP_DB_PG_PASSWORD") "postgres")
+                     :host     (or (System/getenv "SNAP_DB_PG_HOST")     "localhost")
+                     :port     (or (System/getenv "SNAP_DB_PG_PORT")     "5432")
                      }))
 
 (declare account)
